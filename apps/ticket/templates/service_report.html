@@ -1,0 +1,298 @@
+{% load static %}
+<html>
+
+<head>
+    <title>Nuvu Conair Service Report</title>
+    <style>
+        *{
+            font-family: Aileron;
+        }
+         @page {
+        @frame header_frame {           /* Static frame */
+            -pdf-frame-content: header_content;
+            left: 0pt; top: 30pt;
+        }
+        @frame header_frame_h2{
+            -pdf-frame-content: header_content_h2;
+            top: 76pt;
+            left: 460pt;
+        }
+        @frame customer_frame{
+            -pdf-frame-content: customer_info;
+            top: 115pt;
+            left: 0pt;
+        }
+        @frame report_body{
+            top:200pt;
+            left: 0pt;
+            height: 600;
+        }
+
+        @frame footer_frame {           /* Static frame */
+            -pdf-frame-content: footer_content;
+            left: 0pt;  top: 818pt;
+            height: 50pt;
+
+        }
+        @frame footer_frame_page_number {          
+            -pdf-frame-content: footer_page_number;
+            left: 500pt;  top: 825pt;
+        }
+    }
+    .footer{
+        width: 600pt;
+    }
+    b{
+        font-size: larger;
+        color: #FFFFFF;
+        font-family: "Aileron";
+    }
+    #header_content_h2{
+        color: #212121;
+        font-size: 15px;
+        font-family: Aileron;
+
+    }
+    .font_bigger{
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .div_content{
+        border-bottom:1px solid #D2D2D2;height: 20px;
+    }
+    .inner_div{
+        margin-left: 100px;
+        margin-right:150px;
+    }
+    </style>
+</head>
+
+<body >
+    <div id="header_content">
+        <img src="http://{{ server_path }}/static/logo/nuvu_long_logo.png" alt="Image here">
+        </div>
+    <h2 id="header_content_h2">Ticket-No: {{ ticket_number }}</h2>
+    <div id="customer_info">
+        <table style="padding-left: 30px;">
+        <tr><td rowspan="2"><span style="font-size: 20px;font-weight: bold;color: #000000;">
+            M/s {{ customer_name }}
+            </span></td><td style="margin-left: 50px;color: #121212;font-size: 14px;"><span>
+                Equipment model no   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span style="font-weight: 500;"> &nbsp; {{ service_report.equipment_model_no }}</span>
+                </span>
+                </td></tr>
+        <tr><td style="margin-left: 50px;color: #121212;font-size: 14px;">
+            <span>
+                Equipment serial no  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  :<span style="font-weight: 500;">  &nbsp; {{ service_report.equipment_sr_no }} </span>
+                </span>
+            </td></tr>
+        <tr><td><span style="color:#000000">
+              Customer Mo.No : {{ customer_mobile_num }}
+{#            Due days : {{ service_report.due_days }} days#}
+            </span></td><td style="margin-left: 50px;color: #121212;font-size: 14px;">
+            <span>
+                Work order no &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<span style="font-weight: 500; margin-left: 100px;">  &nbsp;  {{ service_report.work_order_no }} </span>
+            </span>    
+            </td></tr>
+        </table>
+        <br>
+        <div class="line" style="background-color:#E6E7E8;color:#E6E7E8;">
+            <br>
+        </div>
+    </div>
+    <div>
+        <div class="inner_div">
+            <div class="div_content">
+                <br>
+                <span class="font_bigger">
+                    Enginer Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ enginer_name }}
+                </span>
+                <br>
+            </div>
+            <div class="div_content">
+                <br>
+                <span class="font_bigger">
+                    Enginer Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ enginer_email }}
+                </span>
+                <br>
+            </div>
+            <div class="div_content">
+                <br>
+                <span class="font_bigger">
+                    Enginer Number &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ enginer_number }}
+                </span>
+                <br>
+            </div>
+        <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Processing M/c Info &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.check_machine_type_op|truncatechars:50 }}
+            </span>
+            <br>
+        </div>
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Install date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.install_date|truncatechars:50 }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; <span>{{ service_report.start_date|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+{#            <div class="div_content">#}
+{#            <br>#}
+{#            <span class="font_bigger">#}
+{#                Start date &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; <span>{{ service_report.start_date|truncatechars:50 }}</span>#}
+{#            </span>#}
+{#            <br>#}
+{#            </div>#}
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Attend date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{ service_report.attend_date|truncatechars:50 }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Close date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{ service_report.close_date|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+{#            <div class="div_content">#}
+{#            <br>#}
+{#            <span class="font_bigger">#}
+{#                Close date &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{ service_report.close_date|truncatechars:50 }}#}
+{#            </span>#}
+{#            <br>#}
+{#            </div>#}
+            <div class="div_content"> 
+            <br>
+            <span class="font_bigger">
+                Customer complain &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.customer_complain|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content"> 
+            <br>
+            <span class="font_bigger">
+                Electrical supply(VAC) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.electrical_supply|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content"> 
+            <br>
+            <span class="font_bigger">
+                Earthing neutral(VAC) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.earthing_neutral|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+
+            <div class="div_content"> 
+            <br>
+            <span class="font_bigger">
+                Pneumatic supply &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.pneumatic_supply|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Water supply &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.water_supply|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content"> 
+            <br>
+            <span class="font_bigger">
+                M/C alarm &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.machine_alarm|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content"> 
+            <br>
+            <span class="font_bigger">
+                Filter condition &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.filter_condition|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content"> 
+            <br>
+            <span class="font_bigger">
+                Production problem type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.item_problem_type.name|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content"> 
+            <br>
+            <span class="font_bigger">
+                Check material type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.check_material_type|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content"> 
+            <br>
+            <span class="font_bigger">
+                Training imparted type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.training_imparted|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+             <span class="font_bigger">
+                 Machine Op &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.machine_op|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content"> 
+            <br>
+            <span class="font_bigger">
+                Work Done &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.corrective_action|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content"> 
+            <br>
+            <span class="font_bigger">
+                Observation After Solving Problem &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.production_trial_observation }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content"> 
+            <br>
+            <span class="font_bigger">
+                Probable Root Cause &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ service_report.root_cause|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Service Chargeable &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{service_chargeable_flag|truncatechars:50}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pricing &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; Rs {{service_report.pricing|truncatechars:50}} 
+            </span>
+            <br>
+            </div>
+        </div>
+        <br>
+        <div class="line" style="background-color:#E6E7E8;color:#E6E7E8;">
+            <br>
+        </div>
+        <div class="inner_div">
+            <h2 style="font-size: 15px;">Service Parts:-</h2>
+            {% for i in service_report_parts %}
+
+            <div class="div_content">
+<br>
+<span class="font_bigger">
+    {{ i.part.spare_name }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ i.action }}
+    </span>
+<br>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="footer_content">
+        
+            <img class="footer" src="http://{{ server_path }}/static/logo/footer.png" alt="Footer Here">
+            </div>
+            <div id="footer_page_number">
+                <b>
+                    Page - <pdf:pagenumber> 
+                </b>
+            </div>
+ 
+</body>
+</html> 

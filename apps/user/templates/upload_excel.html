@@ -1,0 +1,286 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Excel Upload File</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const uploadForm = document.getElementById("fileUploadForm");
+        
+            uploadForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+        
+                const formData = new FormData(uploadForm);
+                fetch("http://127.0.0.1:8000/test/", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log("File uploaded successfully:", data);
+                    })
+                    .catch((error) => {
+                        console.error("File upload failed:", error);
+                    });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Upload File</h1>
+    <form id="fileUploadForm">
+        <label for="model_name">Model Name:</label>
+        <input type="text" id="model_name" name="model_name" required>
+        <br><br>
+        <label for="excel_file">Choose Excel File:</label>
+        <input type="file" id="excel_file" name="excel_file" accept=".xls, .xlsx" required>
+        <br><br>
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload File</title>
+    <!-- <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const uploadForm = document.getElementById("fileUploadForm");
+            const downloadEmptyExcelBtn = document.getElementById("downloadEmptyExcelBtn");
+    
+            uploadForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+                
+                const model_name = document.getElementById("model_name");
+                const selectedValue = model_name.value;
+                console.log(selectedValue,"guuu")
+                const formData = new FormData(uploadForm);
+                console.log(formData,"guuu")
+            //    fetch("http://127.0.0.1:8000/test/", {
+            //        method: "POST",
+            //        body: formData,
+            //    })
+                fetch("http://staging-test-india.csm.conairgroup.in/test/", {
+                    method: "POST",
+                    body: formData,
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("File upload failed");
+                    }
+                })
+                .then((data) => {
+                    alert("File uploaded successfully");
+                    console.log("File uploaded successfully:", data);
+                    setTimeout(function() {
+                        window.history.back();
+                    }, 100);
+                })
+                .catch((error) => {
+                    alert("File upload failed");
+                    console.error("File upload failed:", error);
+                });
+            });
+        });
+
+
+        function downloadEmptyExcel() {
+            const model_name = document.getElementById("model_name");
+            const selectedValue = model_name.value;
+            console.log(selectedValue)    
+
+            // Create a Blob with the column headers
+
+            let columnHeaders;
+            if (selectedValue === "Item"){
+                columnHeaders = ["ItemCode", "ItemName", "ItemDescrition", "FrgnName", "ItmsGrpCod", "CstGrpCode", "ItemType", "Series"]
+            } else if (selectedValue === "CustomerUser"){
+                columnHeaders = ["CardCode","CardName","CardType","GroupCode","CmpPrivate","E_Mail","Phone1","Phone2","Address","Street","Block","ZipCode",	"City","Country	State","Building","AddressType","Address2", "Address3","Address Type","StreetNo","Ntnlty"]
+            } else if (selectedValue === "CustomerWiseItem") {
+                columnHeaders = ["CardCode","ItemCode","SerialNo","QTY","InvoiceNo","InvoiceDate","PackingShlipNo","dispatchDate","WorkOrderNumber"]
+            } else {
+                console.error("Invalid model_name:", selectedValue);
+                return;
+            }
+
+            // Create a TSV string from column headers
+            const tsvString = columnHeaders.join("\t");
+
+            // Create a Blob with the column headers
+            const blob = new Blob([tsvString], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+
+            // Create a link and trigger the download
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = `empty_${selectedValue}_file.xlsx`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+        downloadEmptyExcelBtn.addEventListener("click", downloadEmptyExcel);
+    </script> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 80%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        input[type="file"] {
+            background-color: #f9f9f9;
+        }
+
+        button {
+            background-color: #417690;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #79aec8;
+        }
+        select {
+            width: 90%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload File</h1>
+    <form id="fileUploadForm">
+        <label for="model_name">Model Name:</label>
+        <!-- <input type="text" id="model_name" name="model_name" required> -->
+        <select id="model_name" name="model_name">
+            <option value="Item">Item</option>
+            <option value="CustomerUser">CustomerUser</option>
+            <option value="CustomerWiseItem">CustomerWiseItem</option>
+        </select>
+        <br><br>
+        <label for="excel_file">Choose Excel File:</label>
+        <input type="file" id="excel_file" name="excel_file" accept=".xls, .xlsx" required>
+        <br><br>
+        <button type="submit">Upload</button>
+        <button type="button" id="downloadEmptyExcelBtn">Download Empty Excel</button>
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const uploadForm = document.getElementById("fileUploadForm");
+            const downloadEmptyExcelBtn = document.getElementById("downloadEmptyExcelBtn");
+    
+            uploadForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+                
+                const model_name = document.getElementById("model_name");
+                const selectedValue = model_name.value;
+                console.log(selectedValue,"guuu")
+                const formData = new FormData(uploadForm);
+                console.log(formData,"guuu")
+            //    fetch("http://127.0.0.1:8000/test/", {
+            //        method: "POST",
+            //        body: formData,
+            //    })
+                fetch("http://staging-test-india.csm.conairgroup.in/test/", {
+                    method: "POST",
+                    body: formData,
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("File upload failed");
+                    }
+                })
+                .then((data) => {
+                    alert("File uploaded successfully");
+                    console.log("File uploaded successfully:", data);
+                    setTimeout(function() {
+                        window.history.back();
+                    }, 100);
+                })
+                .catch((error) => {
+                    alert("File upload failed");
+                    console.error("File upload failed:", error);
+                });
+            });
+        });
+
+
+        function downloadEmptyExcel() {
+            const model_name = document.getElementById("model_name");
+            const selectedValue = model_name.value;
+
+            // Create a Blob with the column headers
+
+            let columnHeaders;
+            if (selectedValue === "Item"){
+                columnHeaders = ["ItemCode", "ItemName", "ItemDescrition", "FrgnName", "ItmsGrpCod", "CstGrpCode", "ItemType", "Series"]
+            } else if (selectedValue === "CustomerUser"){
+                columnHeaders = ["CardCode","CardName","CardType","GroupCode","CmpPrivate","E_Mail","Phone1","Phone2","Address","Street","Block","ZipCode",	"City","Country	State","Building","AddressType","Address2", "Address3","Address Type","StreetNo","Ntnlty"]
+            } else if (selectedValue === "CustomerWiseItem") {
+                columnHeaders = ["CardCode","ItemCode","SerialNo","QTY","InvoiceNo","InvoiceDate","PackingShlipNo","dispatchDate","WorkOrderNumber"]
+            } else {
+                console.error("Invalid model_name:", selectedValue);
+                return;
+            }
+
+            // Create a TSV string from column headers
+            const tsvString = columnHeaders.join("\t");
+
+            // Create a Blob with the column headers
+            const blob = new Blob([tsvString], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+
+            // Create a link and trigger the download
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = `empty_${selectedValue}_file.xlsx`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+        downloadEmptyExcelBtn.addEventListener("click", downloadEmptyExcel);
+    </script>
+</body>
+</html>

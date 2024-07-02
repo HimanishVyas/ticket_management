@@ -1,0 +1,13 @@
+env
+/static/
+/staticfiles/
+*.pyc
+*.sqlite3
+todo
+.vscode/
+*migrations/
+*.csv
+/media
+*.xlsx
+*.pub
+.env

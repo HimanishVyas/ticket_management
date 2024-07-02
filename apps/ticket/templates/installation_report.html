@@ -1,0 +1,596 @@
+{% load static %}
+<html>
+
+<head>
+    <title>Nuvu Conair Service Report</title>
+    <style>
+    *{
+        font-family: Aileron;
+    }
+    @frame header_frame {           /* Static frame */
+            -pdf-frame-content: header_content_h2;
+            left: 0pt;top: 30pt;
+        }
+    @frame report_installation{
+        -pdf-frame-content: report_installation;
+        top: 30pt;
+        left:600pt;  z-index: 1; 
+    }
+    @page{
+        size: A3;
+        top: 0;
+        margin-left: 10;
+    }
+    .footer{
+        width: 600pt;
+    }
+    b{
+        font-size: larger;
+        color: #FFFFFF;
+        font-family: "Aileron";
+    }
+    #header_content_h2{
+        color: #212121;
+        font-size: 15px;
+        font-family: Aileron;
+      
+    }
+    #headers_content_h2{
+        color: #212121;
+        font-size: 17px;
+        font-family: Aileron;
+      
+    }
+
+    #report_installation{
+       font-size: 15px;
+    }
+    .font_bigger{
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .div_content{
+        border-bottom:1px solid #D2D2D2;height: 20px; margin-top: 10px;
+    }
+    .inner_div{
+        margin-left: 100px;
+        margin-right:150px;
+    }
+    </style>
+</head>
+
+<body >
+    <div id="header_content">
+        <img src="http://{{ server_path }}/static/logo/nuvu_long_logo.png" alt="Image here">
+    </div>
+    <div id="report_installation">
+        <h1>Installation Report</h1>
+    </div>
+    <div id="customer_info">
+        <table style="padding-left: 30px; margin-top: 20px;">
+            <tr>
+                <td>
+                    <span style="font-size: 20px;font-weight: bold;color: #000000;">
+                        M/s {{ customer_name }}
+                    </span>
+                </td>
+                <td>
+                    <h2 id="headers_content_h2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ticket-No: {{ ticket_number }}</h2>
+                </td>
+            </tr>
+            <p></p>
+            <tr>
+                <td>
+                    <span style="font-size: 15px;font-weight: bold;color:#000000">
+                        Customer Mo.No : {{ customer_mobile_num }}
+                    </span>
+                </td>
+            </tr>
+            <p></p>
+            <tr>
+                <td>
+                    <span style="font-size: 15px;font-weight: bold;color:#000000">
+                        Enginer Name : {{ enginer_name }}
+                    </span>
+                </td>
+            </tr>
+            <p></p>
+            <tr>
+                <td>
+                    <span style="font-size: 15px;font-weight: bold;color:#000000">
+                        Enginer Email : {{ enginer_email }}
+                    </span>
+                </td>
+            </tr>
+            <p></p>
+            <tr>
+                <td>
+                    <span style="font-size: 15px;font-weight: bold;color:#000000">
+                        Enginer Number : {{ enginer_number }}
+                    </span>
+                </td>
+            </tr>
+
+        </table>
+        <br>
+        <div class="line" style="background-color:#E6E7E8;color:#E6E7E8; margin-bottom: 10px">
+            <br>
+        </div>
+    </div>
+    <div>
+        <div class="inner_div">
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Location
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.location|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Packing Slip No
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.packing_slip_no|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Install date
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.install_date|truncatechars:50 }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; <span>{{ installation_report.start_date|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Attend date
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{ installation_report.attend_date|truncatechars:50 }} &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Close date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{ installation_report.close_date|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Voltage BR
+                (VAC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Voltage Yb (VAC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Voltage Ry (VAC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Voltage Earth Neutral
+            </span>
+            <br>
+            </div>
+             <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {{installation_report.voltage_br|truncatechars:50 }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ installation_report.voltage_yb|truncatechars:50 }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ installation_report.voltage_ry|truncatechars:50 }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ installation_report.voltage_earth_neutral|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Water Connection
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.water_connection|truncatechars:50 }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Air Connection
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.air_connection|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Customer Product-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.customer_product|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Customer Mc Max kg/hr
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.Customer_mc_max_kg_hr|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Customer M/C type
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.customer_mc_type|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Customer M/C
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.customer_mc|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Customer Application
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.customer_application|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Production Trial kg/hr
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.production_trial_kg_hr|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+            <span class="font_bigger">
+                Production Quality
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.production_quality|truncatechars:50 }}
+            </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+                <span class="font_bigger">
+                    Installation Procedure
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{ installation_report.installation_procedure|truncatechars:50 }}
+                </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+                <span class="font_bigger">
+                    Trial Observations
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{ installation_report.trial_observations|truncatechars:50 }}
+                </span>
+            <br>
+            </div>
+            <div class="div_content">
+            <br>
+                <span class="font_bigger">
+                    Recommendations
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{ installation_report.recommendations|truncatechars:50 }}
+                </span>
+            <br>
+            </div>
+
+        </div>
+        <br>
+        <div class="line" style="background-color:#E6E7E8;color:#E6E7E8;">
+            <br>
+        </div>
+        <div class="inner_div">
+            <h2 style="font-size: 15px;">INSTALLATION STATUS:-</h2>
+            {% for i in installation_report_parts %}
+            <div class="div_content">
+            <br>
+                <span class="font_bigger">
+                    {{ i.item.ItemName }}
+                </span>
+                <p></p>
+                <span class="font_bigger">
+                    Equipment model no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.item.ItemCode }}
+                </span>
+                <p></p>
+                <span class="font_bigger">
+                    Serial no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.serial_no }}
+                </span>
+                <p></p>
+                <span class="font_bigger">
+                    Action Status(Current)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;
+                    {{ i.installation_problem_status.name }}
+                </span>
+                <br>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--{% load static %}-->
+<!--<html>-->
+
+<!--<head>-->
+<!--    <title>Nuvu Conair Service Report</title>-->
+<!--    <style>-->
+<!--        *{-->
+<!--            font-family: Aileron;-->
+<!--        }-->
+<!--         @page {-->
+<!--        @frame header_frame {           /* Static frame */-->
+<!--            -pdf-frame-content: header_content;-->
+<!--            left: 0pt; top: 30pt;-->
+<!--        }-->
+<!--        @frame header_frame_h2{-->
+<!--            -pdf-frame-content: header_content_h2;-->
+<!--            top: 76pt;-->
+<!--            left: 460pt;-->
+<!--        }-->
+<!--        @frame customer_frame{-->
+<!--            -pdf-frame-content: customer_info;-->
+<!--            top: 115pt;-->
+<!--            left: 0pt;-->
+<!--        }-->
+<!--        @frame report_body{-->
+<!--            top:200pt;-->
+<!--            left: 0pt;-->
+<!--            height: 600;-->
+<!--        }-->
+
+<!--        @frame footer_frame {           /* Static frame */-->
+<!--            -pdf-frame-content: footer_content;-->
+<!--            left: 0pt;  top: 818pt;-->
+<!--            height: 50pt;-->
+
+<!--        }-->
+<!--        @frame footer_frame_page_number {-->
+<!--            -pdf-frame-content: footer_page_number;-->
+<!--            left: 500pt;  top: 825pt;-->
+<!--        }-->
+<!--    }-->
+<!--    .footer{-->
+<!--        width: 600pt;-->
+<!--    }-->
+<!--    b{-->
+<!--        font-size: larger;-->
+<!--        color: #FFFFFF;-->
+<!--        font-family: "Aileron";-->
+<!--    }-->
+<!--    #header_content_h2{-->
+<!--        color: #212121;-->
+<!--        font-size: 15px;-->
+<!--        font-family: Aileron;-->
+
+<!--    }-->
+<!--    .font_bigger{-->
+<!--        font-weight: 500;-->
+<!--        font-size: 14px;-->
+<!--    }-->
+
+<!--    .div_content{-->
+<!--        border-bottom:1px solid #D2D2D2;height: 20px;-->
+<!--    }-->
+<!--    .inner_div{-->
+<!--        margin-left: 100px;-->
+<!--        margin-right:150px;-->
+<!--    }-->
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body >-->
+<!--    <div id="header_content">-->
+<!--        <img src="http://{{ server_path }}/static/logo/nuvu_long_logo.png" alt="Image here">-->
+<!--        </div>-->
+<!--    <h2 id="header_content_h2">Ticket-No: {{ ticket_number }}</h2>-->
+<!--    <div id="customer_info">-->
+<!--        <table style="padding-left: 30px;">-->
+<!--        <tr><td rowspan="2"><span style="font-size: 20px;font-weight: bold;color: #000000;">-->
+<!--            M/s {{ customer_name }}-->
+<!--            </span></td><td style="margin-left: 50px;color: #121212;font-size: 14px;"><span>-->
+<!--                Equipment model no   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span style="font-weight: 500;"> &nbsp; {{ installation_report.equipment_model_no }}</span>-->
+<!--                </span>-->
+<!--                </td></tr>-->
+<!--        <tr><td style="margin-left: 50px;color: #121212;font-size: 14px;">-->
+<!--            <span>-->
+<!--                Equipment serial no  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  :<span style="font-weight: 500;">  &nbsp; {{ installation_report.equipment_sr_no }} </span>-->
+<!--                </span>-->
+<!--            </td></tr>-->
+<!--        <tr><td><span style="color:#000000">-->
+<!--              Customer Mo.No : {{ customer_mobile_num }}-->
+<!--            </span></td><td style="margin-left: 50px;color: #121212;font-size: 14px;">-->
+<!--            <span>-->
+<!--                Work order no &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<span style="font-weight: 500; margin-left: 100px;">  &nbsp;  {{ installation_report.work_order_no }} </span>-->
+<!--            </span>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </table>-->
+<!--        <br>-->
+<!--        <div class="line" style="background-color:#E6E7E8;color:#E6E7E8;">-->
+<!--            <br>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <div class="inner_div">-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Location-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.location|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Packing Slip No-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.packing_slip_no|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Customer Mc type-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.customer_mc_type|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Customer Mc-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.customer_mc|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Customer Application-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.customer_application|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Customer Product-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.customer_product|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Customer Mc Max kg/hr-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.Customer_mc_max_kg_hr|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Install date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.install_date|truncatechars:50 }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; <span>{{ installation_report.start_date|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Attend date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{ installation_report.attend_date|truncatechars:50 }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Close date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{ installation_report.close_date|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--                <span class="font_bigger">-->
+<!--                    Installation Procedure-->
+<!--                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{ installation_report.installation_procedure|truncatechars:50 }}-->
+<!--                </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--                <span class="font_bigger">-->
+<!--                    Commissioning Status-->
+<!--                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{ installation_report.commissioning_status|truncatechars:50 }}-->
+<!--                </span>-->
+<!--            <br>-->
+<!--            </div>-->
+
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Voltage Ry (VAC)-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.voltage_ry|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Voltage Br (VAC)-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.voltage_br|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Voltage Yb (VAC)-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.voltage_yb|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Voltage Earth Neutral-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.voltage_earth_neutral|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Pneumatic Air-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.pneumatic_air|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Water Connection-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.water_connection|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Production Trial kg/hr-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.production_trial_kg_hr|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+<!--            <div class="div_content">-->
+<!--            <br>-->
+<!--            <span class="font_bigger">-->
+<!--                Production Quality-->
+<!--                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ installation_report.production_quality|truncatechars:50 }}-->
+<!--            </span>-->
+<!--            <br>-->
+<!--            </div>-->
+
+
+<!--        </div>-->
+<!--        <br>-->
+<!--        <div class="line" style="background-color:#E6E7E8;color:#E6E7E8;">-->
+<!--            <br>-->
+<!--        </div>-->
+<!--        <div class="inner_div">-->
+<!--            <h2 style="font-size: 15px;">Service Parts:-</h2>-->
+<!--            {% for i in installation_report_parts %}-->
+
+<!--            <div class="div_content">-->
+<!--<br>-->
+<!--<span class="font_bigger">-->
+<!--    {{ i.item.ItemName }} - {{ i.action }}-->
+<!--    </span>-->
+<!--<br>-->
+<!--                </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div id="footer_content">-->
+
+<!--            <img class="footer" src="http://{{ server_path }}/static/logo/footer.png" alt="Footer Here">-->
+<!--            </div>-->
+<!--            <div id="footer_page_number">-->
+<!--                <b>-->
+<!--                    Page - <pdf:pagenumber>-->
+<!--                </b>-->
+<!--            </div>-->
+
+<!--</body>-->
+<!--</html>-->
